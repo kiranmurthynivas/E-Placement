@@ -1,0 +1,103 @@
+body {
+    font-family: "Parkinsans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+   
+}
+
+.container {
+    flex: 1;
+    margin-top: 2rem;
+}
+
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+
+.logo {
+    width: 4rem;
+    height: 4rem;
+}
+
+/*Footer */
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    color: #222222;
+}
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-socials i {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+.f-info {
+    text-align: center;
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+.icon {
+    border: 1px solid black;
+    border-radius: 50%;
+    margin: 2px;
+    padding: 0.6rem;
+}
+
+.roadmaps-section {
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .roadmap-category {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 15px;
+  }
+  
+  h3 {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  

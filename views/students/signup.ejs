@@ -1,0 +1,49 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div class="row mt-3">
+        <div class="col-6 offset-3">
+            <div class="container mt-4">
+                <h1>Signup for Student</h1>
+                <form action="/signup/student" method="POST" class="needs-validation" novalidate>
+                    <!-- Name Field -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Name</label>
+                        <input name="username" id="username" type="text" class="form-control" required />
+                    </div>
+                    
+                    <!-- USN Field -->
+                    <div class="mb-3">
+                        <label for="usn" class="form-label">USN</label>
+                        <input name="usn" id="usn" type="text" class="form-control" required />
+                    </div>
+
+                    <!-- Branch Field -->
+                    <div class="mb-3">
+                        <label for="branch" class="form-label">Branch</label>
+                        <input name="branch" id="branch" type="text" class="form-control" required />
+                    </div>
+
+                    <!-- Mobile Number Field -->
+                    <div class="mb-3">
+                        <label for="mobileNumber" class="form-label">Mobile Number</label>
+                        <input name="mobileNumber" id="mobileNumber" type="number" class="form-control" required />
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input name="email" id="email" type="email" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input name="password" id="password" type="password" class="form-control" required />
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button class="btn btn-primary" type="submit">Signup</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,144 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div class="row mt-3">
+        <div class="col-6 offset-3">
+            <div class="container mt-4">
+                <h1>Login</h1>
+                
+                <!-- Flash Messages -->
+                <% if (error && error.length > 0) { %>
+                    <div class="alert alert-danger">
+                        <%= error %>
+                    </div>
+                <% } %>
+                <% if (success && success.length > 0) { %>
+                    <div class="alert alert-success">
+                        <%= success %>
+                    </div>
+                <% } %>
+
+                <!-- Radio Buttons to Toggle Login -->
+                <div class="form-check form-check-inline">
+                    <input 
+                        class="form-check-input" 
+                        type="radio" 
+                        name="loginType" 
+                        id="student-radio" 
+                        value="student" 
+                        checked
+                    />
+                    <label class="form-check-label" for="student-radio">Student</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input 
+                        class="form-check-input" 
+                        type="radio" 
+                        name="loginType" 
+                        id="mentor-radio" 
+                        value="mentor"
+                    />
+                    <label class="form-check-label" for="mentor-radio">Mentor</label>
+                </div>
+
+                <!-- Student Login Form -->
+                <form id="student-login-form" action="/login/student" method="POST" class="needs-validation mt-4" novalidate>
+                    <div class="mb-3">
+                        <label for="student-username" class="form-label">Username</label>
+                        <input 
+                            name="username" 
+                            id="student-username" 
+                            type="text" 
+                            class="form-control" 
+                            required 
+                            placeholder="Enter your username"
+                        />
+                        <div class="invalid-feedback">
+                            Please enter your username.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="student-password" class="form-label">Password</label>
+                        <input 
+                            name="password" 
+                            id="student-password" 
+                            type="password" 
+                            class="form-control" 
+                            required 
+                            placeholder="Enter your password"
+                        />
+                        <div class="invalid-feedback">
+                            Please enter your password.
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Log in as Student</button>
+                </form>
+
+                <!-- Mentor Login Form -->
+                <form id="mentor-login-form" action="/login/mentor" method="POST" class="needs-validation mt-4" novalidate style="display: none;">
+                    <div class="mb-3">
+                        <label for="mentor-username" class="form-label">Username</label>
+                        <input 
+                            name="username" 
+                            id="mentor-username" 
+                            type="text" 
+                            class="form-control" 
+                            required 
+                            placeholder="Enter your username"
+                        />
+                        <div class="invalid-feedback">
+                            Please enter your username.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mentor-password" class="form-label">Password</label>
+                        <input 
+                            name="password" 
+                            id="mentor-password" 
+                            type="password" 
+                            class="form-control" 
+                            required 
+                            placeholder="Enter your password"
+                        />
+                        <div class="invalid-feedback">
+                            Please enter your password.
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Log in as Mentor</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between Student and Mentor forms using radio buttons
+        const studentRadio = document.getElementById('student-radio');
+        const mentorRadio = document.getElementById('mentor-radio');
+        const studentForm = document.getElementById('student-login-form');
+        const mentorForm = document.getElementById('mentor-login-form');
+
+        studentRadio.addEventListener('change', () => {
+            studentForm.style.display = 'block';
+            mentorForm.style.display = 'none';
+        });
+
+        mentorRadio.addEventListener('change', () => {
+            mentorForm.style.display = 'block';
+            studentForm.style.display = 'none';
+        });
+
+        // Optional: Add Bootstrap's client-side validation
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+</body>

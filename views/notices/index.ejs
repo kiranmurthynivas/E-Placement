@@ -1,0 +1,28 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div class="mt-3">
+    <form action="/notice/new" method="GET">
+        <button class="btn btn-primary mt-3">Send A New Notice</button>
+    </form>
+    <div class="container mt-4">
+        <% for (let notice of allNotices) { %>
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <h5 class="card-title "><%= notice.title %></h5>
+                    <p class="card-text"><%= notice.description %></p>
+                    <% if(notice.link.length) {%>
+                    <a href="<%= notice.link %>">read more..</a>
+                    <% } %>
+                    <p><%=  notice. created_at %></p>
+                    <form action="/notice/<%= notice._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete Notice</button>
+                    </form>
+                    
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+    <br>
+</div>
+</body>
