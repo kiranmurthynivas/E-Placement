@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const Notice = require("./models/notice.js");
-const path = require("path");
+const multer = require('multer');
+const path = require('path');
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -9,6 +10,7 @@ const twilio = require('twilio');
 const { parsePhoneNumber } = require("libphonenumber-js");
 const wrapAsync  = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const Workshop = require("./models/workshop.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/e-placement";
 
@@ -31,6 +33,18 @@ app.use(express.urlencoded({ extended: true}));
 app.use(methodOverride("_method"));
 app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // directory where files will be stored
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + path.extname(file.originalname)); // Set a unique filename
+    }
+  });
+  
+  // Initialize multer with the storage configuration
+  const upload = multer({ storage: storage });
 
 app.get("/home", wrapAsync( async (req, res) => {
     res.render("includes/home.ejs");
@@ -109,6 +123,20 @@ app.get("/resource/roadmaps",wrapAsync( async (req,res) => {
 app.get("/resource/workshops/new",wrapAsync( async (req,res) => {
     res.render("workshops/newVideo.ejs");
 }));
+app.post("/resource/workshops", upload.single('thumbnail'), wrapAsync(async (req, res) => {
+    if (!req.file) {
+      return res.status(400).send("No file uploaded.");
+    }
+    
+    const url = req.file.path;
+    const filename = req.file.filename;
+    const newWorkshop = new Workshop(req.body.listing);
+    newWorkshop.owner = req.user._id;
+    newWorkshop.image = { url, filename };
+    
+    let savedWorkshop = await newWorkshop.save();
+    res.redirect("/resource/workshops");
+  }));
 
 app.all("*", (req,res,next) => {
     next(new ExpressError (404,"Page Not Found!"));
