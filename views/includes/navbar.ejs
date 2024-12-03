@@ -5,196 +5,220 @@
     top: 0;
     width: 100%;
     z-index: 1030;
-    background-color: #f8f9fa; /* Lighter background for better contrast */
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
-  
+
   body {
-    padding-top: 80px; /* Adjusted padding for the navbar height */
+    padding-top: 80px;
   }
-  
+
   /* Navbar collapse */
   .navbar-collapse {
     transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
   }
-  
+
   .navbar-collapse.collapse.show {
     background-color: #fff;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    opacity: 1; /* Ensure visibility when expanded */
+    opacity: 1;
   }
-  
+
   /* Logo Styling */
   .logo {
     width: 50px;
     height: auto;
   }
-  
+
   /* Navbar Links */
   .navbar-nav .nav-item {
     margin-left: 1rem;
     display: flex;
-    align-items: center; /* Vertically center items */
+    align-items: center;
   }
-  
+
   .navbar-nav .nav-item a {
     color: #333;
     font-size: 16px;
     text-transform: uppercase;
     padding: 0.75rem 1rem;
-    transition: color 0.3s;
     display: flex;
-    align-items: center; /* Vertically center text */
+    align-items: center;
+    border-radius: 0.25rem;
+    transition: box-shadow 0.3s ease;
   }
-  
+
   .navbar-nav .nav-item a:hover {
-    color: #fff;
-    background-color: #007bff; /* Blue background on hover */
+    background-color: transparent; /* No color change on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow on hover */
+  }
+
+  /* Resources Dropdown Styling (similar to Profile dropdown) */
+  .navbar-nav .nav-item .dropdown {
+    position: relative;
+  }
+
+  .navbar-nav .nav-item .dropdown-toggle {
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    color: #333;
     border-radius: 0.25rem;
+    transition: box-shadow 0.3s ease;
   }
-  
-  /* Select Styling */
-  .navbar-nav .nav-item select {
-    font-size: 16px;
-    color: #000;
-    background: #f8f9fa;
-    border: 1px solid #ccc;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    outline: none;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s ease;
+
+  .navbar-nav .nav-item .dropdown-toggle:hover {
+    background-color: transparent;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover effect for dropdown button */
   }
-  
-  .navbar-nav .nav-item select:focus {
-    border-color: #007bff;
-    background-color: #fff;
-  }
-  
-  .navbar-nav .nav-item select option {
-    color: #000;
-  }
-  
-  /* Navbar Dropdown */
-  .nav-item.dropdown .dropdown-menu {
+
+  .navbar-nav .nav-item .dropdown-menu {
     min-width: 200px;
     border-radius: 0.25rem;
     box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
-    padding: 0; /* Remove extra padding */
+    padding: 0;
   }
-  
-  .nav-item.dropdown .dropdown-item {
+
+  .navbar-nav .nav-item .dropdown-item {
     padding: 0.75rem 1rem;
-    transition: background-color  ease;
-    text-align: left; /* Align text to the left for consistency */
+    text-align: left;
+    transition: background-color 0.2s ease;
   }
-  
-  .nav-item.dropdown .dropdown-item:hover {
+
+  .navbar-nav .nav-item .dropdown-item:hover {
     background-color: #007bff;
-    color: #f8f9fa;
+    color: #fff;
   }
-  
+
+  /* Profile Section */
+  .navbar-nav .profile-section {
+    position: relative;
+  }
+
+  .navbar-nav .profile-section .nav-link {
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    color: #333;
+    border-radius: 0.25rem;
+  }
+
+  .navbar-nav .profile-section .nav-link:hover {
+    background-color: transparent;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow on hover */
+  }
+
+  /* Dropdown Styling */
+  .navbar-nav .profile-section .dropdown-menu {
+    min-width: 200px;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+    padding: 0;
+  }
+
+  .navbar-nav .profile-section .dropdown-item {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    transition: background-color 0.2s ease;
+  }
+
+  .navbar-nav .profile-section .dropdown-item:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+
   /* Navbar Right Section */
   .navbar-nav.ms-auto {
-    margin-left: auto;
+    margin-left: auto; /* Aligns the profile section to the right */
   }
-  
-  /* Profile Icon */
-  .fa-user {
-    font-size: 1.2rem;
-    margin-right: 8px;
-  }
-  
-  /* Hover effects for resources */
-  #resource {
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
-  }
-  
-  #resource:hover {
-    opacity: 1;
-  }
-  
-  .select {
-    margin-top: 0.6rem !important;
-  }
-  
-  /* Medium-sized devices (Tablet, small laptops) */
+
+  /* Responsive Design */
   @media (max-width: 991px) {
-    /* Improved collapse transition */
-    .navbar-collapse {
-      transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
-    }
-  
-    /* Adjust spacing for smaller screens */
     .navbar-nav .nav-item {
-      margin-left: 1rem; /* Increase spacing for medium-sized screens */
+      margin-left: 1rem;
     }
-  
+
     .navbar-nav .nav-item a {
-      padding: 0.6rem 1rem; /* Adjust padding for medium screens */
+      padding: 0.6rem 1rem;
     }
-  
+
     .navbar-nav .nav-item select {
-      padding: 0.5rem 1rem; /* Adjust padding for select dropdown */
+      padding: 0.5rem 1rem;
     }
   }
-  
-  /* Additional Styling for Mobile */
+
   @media (max-width: 767px) {
     .navbar-nav .nav-item {
-      margin-left: 0.5rem; /* Adjust spacing for smaller screens */
+      margin-left: 0.5rem;
     }
-  
+
     .navbar-nav .nav-item a {
-      padding: 0.5rem 0.75rem; /* Adjust padding for mobile */
+      padding: 0.5rem 0.75rem;
     }
-  
+
     .navbar-nav .nav-item select {
-      padding: 0.4rem 0.75rem; /* Adjust padding for select dropdown */
+      padding: 0.4rem 0.75rem;
     }
   }
-  </style>
-  <div id="nav">
-    <nav class="navbar navbar-expand-md">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/notice">
-          <img class="logo" src="/images/smvitlogo.jpg" alt="logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/notice">Notice Board</a>
-            </li>
-            <li class="nav-item">
-              <select class="select mt-2" name="resource" id="resource" onchange="navigateToResource()">
-                <option value="">Resources</option>
-                <option value="workshops">Workshops</option>
-                <option value="roadmaps">Roadmaps</option>
-              </select>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://www.sirmvit.edu/placement/">About us</a>
-            </li>
-          </ul>
+</style>
+
+<div id="nav">
+  <nav class="navbar navbar-expand-md">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/notice">
+        <img class="logo" src="/images/smvitlogo.jpg" alt="logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/notice">Notice Board</a>
+          </li>
+          <!-- Resources Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle nav-link" href="#" id="navbarDropdownResources" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Resources
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownResources">
+              <li><a class="dropdown-item" href="/resource/workshops">Workshops</a></li>
+              <li><a class="dropdown-item" href="/resource/roadmaps">Roadmaps</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.sirmvit.edu/placement/">About us</a>
+          </li>
+          <div class="navbar-nav ms-auto">
+          <li class="nav-item profile-section dropdown ">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
+              <li><a class="dropdown-item" href="/student-signup">Student Sign-Up</a></li>
+              <li><a class="dropdown-item" href="/student-login">Student Login</a></li>
+              <li><a class="dropdown-item" href="/mentor-login">Mentor Login</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+          </li>
         </div>
+          
+        </ul>
       </div>
-    </nav>
-  </div>
-  
-  <script>
-    function navigateToResource() {
-      var resource = document.getElementById("resource").value;
-      if (resource === "workshops") {
-        window.location.href = "/resource/workshops"; 
-      } else if (resource === "roadmaps") {
-        window.location.href = "/resource/roadmaps"; 
-      }
+    </div>
+  </nav>
+</div>
+
+<script>
+  function navigateToResource() {
+    var resource = document.getElementById("resource").value;
+    if (resource === "workshops") {
+      window.location.href = "/resource/workshops"; 
+    } else if (resource === "roadmaps") {
+      window.location.href = "/resource/roadmaps"; 
     }
-  </script>
-  
+  }
+</script>

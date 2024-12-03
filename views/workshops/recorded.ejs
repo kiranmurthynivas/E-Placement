@@ -1,9 +1,25 @@
 <% layout("/layouts/boilerplate") %>
-
-
-
 <body>
-   <form action="/resource/workshops/new" method="GET">
-        <button class="btn btn-primary" >Upload a new resource</button>
-   </form> 
+  <div class="container mt-4">
+    <form action="/resource/workshops/new" method="GET">
+      <button class="btn btn-primary mb-4">Upload a new resource</button>
+    </form>
+    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 g-3">
+      <% for (let workshop of allWorkshops) { %>
+        <div class="col">
+          <div class="card" style="width: 100%; height: auto;">
+            <img src="<%= workshop.image.url %>" class="card-img-top" alt="workshop-thumbnail" style="height: 150px; object-fit: cover;">
+            <div class="card-body">
+              <h6 class="card-title"><%= workshop.title %></h6>
+              <p class="card-text" style="font-size: 0.9rem;"><%= workshop.description %></p>
+              <a href="<%= workshop.link %>" class="btn btn-link p-0">Read more</a><br><br>
+              <form action="/resource/workshops/<%= workshop._id %>?_method=DELETE" method="POST" style="display: inline;">
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
 </body>

@@ -1,1 +1,80 @@
 <% layout("/layouts/boilerplate") %>
+
+<body>
+    <!-- Fullscreen Background Video -->
+    <div class="bg-video-container">
+        <video autoplay muted loop id="background-video">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"> <!-- Replace with your video URL -->
+            Your browser does not support HTML5 video.
+        </video>
+
+        <!-- Header Section -->
+        <div class="container mt-4">
+            <div class="jumbotron text-center text-white">
+                <h1 class="display-4">Sir M. Visvesvaraya Institute of Technology Placement Cell</h1>
+                <p class="lead">Empowering students to build a successful career with top industry leaders.</p>
+                <hr class="my-4">
+                <p>Connecting students with opportunities to grow and succeed in their professional journey.</p>
+            </div>
+        </div>
+
+        <!-- Services We Provide Section -->
+        <div class="container mt-5">
+            <h2 class="text-center text-white">Services We Provide</h2>
+            <div class="row">
+                <!-- Service Cards (As previously defined) -->
+                <!-- Add your service cards here -->
+            </div>
+        </div>
+
+        <!-- Recent Hirings Section -->
+        <div class="container mt-5">
+            <h2 class="text-center text-white">Recent Hirings</h2>
+            <div class="row">
+                <!-- Recent Hiring Cards (As previously defined) -->
+                <!-- Add your recent hiring cards here -->
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <footer class="bg-dark text-white text-center p-4 mt-5">
+            <p>&copy; 2024 Sir M. Visvesvaraya Institute of Technology Placement Cell</p>
+        </footer>
+    </div>
+
+    <style>
+        /* Fullscreen Video */
+        .bg-video-container {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        #background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .bg-video-container .container {
+            z-index: 2;
+            position: relative;
+            color: white;
+        }
+
+        .bg-video-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Add dark overlay for readability */
+            z-index: 1;
+        }
+    </style>
+</body>
