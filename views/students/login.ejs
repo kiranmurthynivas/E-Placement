@@ -26,6 +26,7 @@
                         id="student-radio" 
                         value="student" 
                         checked
+                        aria-label="Select Student Login"
                     />
                     <label class="form-check-label" for="student-radio">Student</label>
                 </div>
@@ -36,12 +37,13 @@
                         name="loginType" 
                         id="mentor-radio" 
                         value="mentor"
+                        aria-label="Select Mentor Login"
                     />
                     <label class="form-check-label" for="mentor-radio">Mentor</label>
                 </div>
 
                 <!-- Student Login Form -->
-                <form id="student-login-form" action="/login/student" method="POST" class="needs-validation mt-4" novalidate>
+                <form id="student-login-form" action="/login/student" method="POST" class="needs-validation mt-4" novalidate style="display: block;">
                     <div class="mb-3">
                         <label for="student-username" class="form-label">Username</label>
                         <input 

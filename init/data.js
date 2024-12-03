@@ -8,6 +8,15 @@ const sampleStudents = [
         role: "student",
         password: "kiran123", // Remember to hash the password before storing
     },
+    {
+        username: "Shritan",  // Used for login with passport-local-mongoose
+        usn: "1MV22CS076",
+        branch: "Computer Science",
+        mobileNumber: "9731256133",
+        email: "kiranmurthynivas29@.com",
+        role: "student",
+        password: "kiran123", // Remember to hash the password before storing
+    },
 ];
 
 module.exports = { data: sampleStudents };
