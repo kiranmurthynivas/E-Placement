@@ -13,151 +13,30 @@
     padding-top: 80px;
   }
 
-  /* Navbar collapse */
-  .navbar-collapse {
-    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
-  }
-
-  .navbar-collapse.collapse.show {
-    background-color: #fff;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    opacity: 1;
-  }
-
-  /* Logo Styling */
   .logo {
     width: 50px;
     height: auto;
   }
 
-  /* Navbar Links */
-  .navbar-nav .nav-item {
-    margin-left: 1rem;
-    display: flex;
-    align-items: center;
-  }
-
-  .navbar-nav .nav-item a {
-    color: #333;
-    font-size: 16px;
-    text-transform: uppercase;
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    border-radius: 0.25rem;
-    transition: box-shadow 0.3s ease;
-  }
-
-  .navbar-nav .nav-item a:hover {
-    background-color: transparent; /* No color change on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow on hover */
-  }
-
-  /* Resources Dropdown Styling (similar to Profile dropdown) */
-  .navbar-nav .nav-item .dropdown {
-    position: relative;
-  }
-
-  .navbar-nav .nav-item .dropdown-toggle {
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    color: #333;
-    border-radius: 0.25rem;
-    transition: box-shadow 0.3s ease;
-  }
-
-  .navbar-nav .nav-item .dropdown-toggle:hover {
-    background-color: transparent;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover effect for dropdown button */
-  }
-
-  .navbar-nav .nav-item .dropdown-menu {
+  /* Profile Section Styling */
+  .profile-section .dropdown-menu {
     min-width: 200px;
     border-radius: 0.25rem;
     box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
-    padding: 0;
+    padding: 0.5rem;
   }
 
-  .navbar-nav .nav-item .dropdown-item {
-    padding: 0.75rem 1rem;
+  .profile-section .btn {
+    width: 100%;
+    font-size: 14px;
     text-align: left;
-    transition: background-color 0.2s ease;
-  }
-
-  .navbar-nav .nav-item .dropdown-item:hover {
-    background-color: #007bff;
-    color: #fff;
-  }
-
-  /* Profile Section */
-  .navbar-nav .profile-section {
-    position: relative;
-  }
-
-  .navbar-nav .profile-section .nav-link {
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    color: #333;
-    border-radius: 0.25rem;
-  }
-
-  .navbar-nav .profile-section .nav-link:hover {
-    background-color: transparent;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow on hover */
-  }
-
-  /* Dropdown Styling */
-  .navbar-nav .profile-section .dropdown-menu {
-    min-width: 200px;
-    border-radius: 0.25rem;
-    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
-    padding: 0;
-  }
-
-  .navbar-nav .profile-section .dropdown-item {
-    padding: 0.75rem 1rem;
-    text-align: left;
-    transition: background-color 0.2s ease;
-  }
-
-  .navbar-nav .profile-section .dropdown-item:hover {
-    background-color: #007bff;
-    color: #fff;
-  }
-
-  /* Navbar Right Section */
-  .navbar-nav.ms-auto {
-    margin-left: auto; /* Aligns the profile section to the right */
+    margin-bottom: 0.5rem;
   }
 
   /* Responsive Design */
-  @media (max-width: 991px) {
-    .navbar-nav .nav-item {
-      margin-left: 1rem;
-    }
-
-    .navbar-nav .nav-item a {
-      padding: 0.6rem 1rem;
-    }
-
-    .navbar-nav .nav-item select {
-      padding: 0.5rem 1rem;
-    }
-  }
-
   @media (max-width: 767px) {
-    .navbar-nav .nav-item {
-      margin-left: 0.5rem;
-    }
-
-    .navbar-nav .nav-item a {
-      padding: 0.5rem 0.75rem;
-    }
-
-    .navbar-nav .nav-item select {
-      padding: 0.4rem 0.75rem;
+    .profile-section .btn {
+      font-size: 13px;
     }
   }
 </style>
@@ -179,7 +58,6 @@
           <li class="nav-item">
             <a class="nav-link" href="/notice">Notice Board</a>
           </li>
-          <!-- Resources Dropdown -->
           <li class="nav-item dropdown">
             <a class="dropdown-toggle nav-link" href="#" id="navbarDropdownResources" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Resources
@@ -192,33 +70,34 @@
           <li class="nav-item">
             <a class="nav-link" href="https://www.sirmvit.edu/placement/">About us</a>
           </li>
-          <div class="navbar-nav ms-auto">
-          <li class="nav-item profile-section dropdown ms-auto">
+        </ul>
+
+        <!-- Separate Section for Student Registration and Mentor -->
+        <div class="d-flex ms-auto">
+          <form action="/student/signup" method="GET" class="me-3">
+            <button type="submit" class="btn btn-danger">Student Registration</button>
+          </form>
+          <div class="profile-section dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Profile
+              Mentor
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
-              <li><a class="dropdown-item" href="/student-signup">Student Sign-Up</a></li>
-              <li><a class="dropdown-item" href="/student-login">Student Login</a></li>
-              <li><a class="dropdown-item" href="/mentor-login">Mentor Login</a></li>
-              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              <% if (!currUser) { %>
+                <li>
+                  <a href="/mentor/login" class="btn btn-info">Login</a>
+                </li>
+              <% } else { %>
+                <li>
+                  <form action="/logout" method="GET">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                  </form>
+                </li>
+              <% } %>
             </ul>
-          </li>
+          </div>
         </div>
-          
-        </ul>
       </div>
     </div>
   </nav>
 </div>
 
-<script>
-  function navigateToResource() {
-    var resource = document.getElementById("resource").value;
-    if (resource === "workshops") {
-      window.location.href = "/resource/workshops"; 
-    } else if (resource === "roadmaps") {
-      window.location.href = "/resource/roadmaps"; 
-    }
-  }
-</script>

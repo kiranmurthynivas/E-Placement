@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const mentorSchema = new Schema({
-    name: { type: String, required: true },
     role: { type: String, default: 'mentor' },
 });
 

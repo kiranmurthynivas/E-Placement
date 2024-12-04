@@ -4,13 +4,21 @@
         <div class="col-6 offset-3">
             <div class="container mt-4">
                 <h1>Signup for Student</h1>
-                <form action="/signup/student" method="POST" class="needs-validation" novalidate>
+
+                <!-- Display error message if any -->
+                <% if (error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= error %>
+                    </div>
+                <% } %>
+
+                <form action="/student/signup" method="POST" class="needs-validation" novalidate>
                     <!-- Name Field -->
                     <div class="mb-3">
                         <label for="username" class="form-label">Name</label>
                         <input name="username" id="username" type="text" class="form-control" required />
                     </div>
-                    
+
                     <!-- USN Field -->
                     <div class="mb-3">
                         <label for="usn" class="form-label">USN</label>
@@ -26,7 +34,7 @@
                     <!-- Mobile Number Field -->
                     <div class="mb-3">
                         <label for="mobileNumber" class="form-label">Mobile Number</label>
-                        <input name="mobileNumber" id="mobileNumber" type="number" class="form-control" required />
+                        <input name="mobileNumber" id="mobileNumber" type="tel" pattern="^\+?[1-9]\d{1,14}$" class="form-control" required />
                     </div>
 
                     <!-- Email Field -->
@@ -35,9 +43,16 @@
                         <input name="email" id="email" type="email" class="form-control" required />
                     </div>
 
+                    <!-- Password Field -->
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input name="password" id="password" type="password" class="form-control" required />
+                    </div>
+
+                    <!-- Confirm Password Field -->
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input name="confirmPassword" id="confirmPassword" type="password" class="form-control" required />
                     </div>
 
                     <!-- Submit Button -->

@@ -9,15 +9,21 @@ const path = require('path');
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const session = require("express-session");
 const twilio = require('twilio');
 const { parsePhoneNumber } = require("libphonenumber-js");
 const wrapAsync  = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const Workshop = require("./models/workshop.js");
-const Student = require("./models/student.js");
 const multer = require("multer");
 const { storage } = require("./cloudConfig.js");
 const upload = multer({ storage });
+const Student = require("./models/student.js");
+const Mentor = require("./models/mentor.js");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const passportLocalMongoose = require("passport-local-mongoose");
+const {isLoggedIn } = require("./middleware.js");
 
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/e-placement";
@@ -42,6 +48,97 @@ app.use(methodOverride("_method"));
 app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
+const sessionOptions = {
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,  // Session expires in 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000,  // Max age for session cookie
+        httpOnly: true,  // Security feature: prevents client-side JS from accessing cookies
+    }
+};
+
+// Use session middleware before initializing Passport
+app.use(session(sessionOptions));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(Student.authenticate()));
+
+passport.serializeUser(Student.serializeUser());
+passport.deserializeUser(Student.deserializeUser());
+
+passport.use(new LocalStrategy(Mentor.authenticate()));
+
+passport.serializeUser(Mentor.serializeUser());
+passport.deserializeUser(Mentor.deserializeUser());
+  
+
+app.use((req, res, next) => {
+    console.log("Session exists:", req.session);
+    console.log("Current User:", req.user);
+    res.locals.currUser = req.user || null;
+    next();
+});
+
+
+
+app.get("/student/signup", (req, res) => {
+    res.render("students/signup.ejs", { error: null }); // Pass error as null initially
+});
+
+app.post(
+    "/student/signup",
+    wrapAsync(async (req, res) => {
+        const { username, usn, branch, mobileNumber, email, password, confirmPassword, role = "student" } = req.body;
+
+        // Check password confirmation
+        if (password !== confirmPassword) {
+            return res.render("students/signup.ejs", {
+                error: "Passwords do not match!",
+            });
+        }
+
+        try {
+            const newStudent = new Student({ username, usn, branch, mobileNumber, email, role });
+            const registeredStudent = await Student.register(newStudent, password); // Register the student using passport-local-mongoose
+            console.log(registeredStudent);
+            res.redirect("/home");
+        } catch (e) {
+            console.error(e);
+            res.render("students/signup.ejs", {
+                error: e.message || "Signup failed. Please try again!",
+            });
+        }
+    })
+);
+
+
+
+app.get("/mentor/login", (req, res) => {
+    res.render("mentors/login.ejs"); 
+});
+
+app.post("/mentor/login", passport.authenticate("local", {
+    failureRedirect: "/mentor/login",// If using flash messages for errors
+}), (req, res) => {
+    // Check if user is successfully authenticated
+    console.log("Authenticated user: ", req.user);  // This should print the logged-in user object
+    res.redirect("/home");
+});
+
+  
+  
+  
+
+app.get("/logout", (req, res, next)=>{
+    req.logOut((err) => {
+        if(err) {
+           return next(err);
+        }
+        res.redirect("/home");
+    })
+});
 
 app.get("/home", wrapAsync( async (req, res) => {
     res.render("includes/home.ejs");
@@ -51,7 +148,7 @@ app.get("/about", wrapAsync( async (req, res) => {
     res.render("includes/about.ejs");
 }));
 
-app.get("/notice",wrapAsync(async (req, res) => {
+app.get("/notice", wrapAsync(async (req, res) => {
     let allNotices = await Notice.find({}).sort({ created_at: -1 }); 
     res.render("notices/index.ejs", { allNotices });
 }));
@@ -63,7 +160,7 @@ app.delete("/notice/:id",wrapAsync ( async (req,res) =>{
     res.redirect("/notice");
 }));
 
-app.get("/notice/new", wrapAsync(async (req, res) => {
+app.get("/notice/new",wrapAsync(async (req, res) => {
     res.render("notices/new.ejs");
 }));
 
@@ -139,7 +236,7 @@ app.get("/resource/workshops/new", wrapAsync(async (req, res) => {
     res.render("workshops/newVideo.ejs");
 }));
 
-app.post("/resource/workshops", upload.single("thumbnail"), wrapAsync(async (req, res) => {
+app.post("/resource/workshops",  upload.single("thumbnail"), wrapAsync(async (req, res) => {
     if (!req.file) {
         return res.status(400).send("No file uploaded.");
     }
